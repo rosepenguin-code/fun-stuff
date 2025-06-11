@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>🍽️ Onde vamos comer?</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background: linear-gradient(to right, #fce4ec, #e1f5fe);
+      text-align: center;
+      padding: 50px;
+      color: #444;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      color: #ba68c8;
+      margin-bottom: 30px;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 20px auto;
+      max-width: 320px;
+    }
+
+    li {
+      background-color: #ffffffcc;
+      margin: 10px 0;
+      padding: 15px;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      font-size: 1.2em;
+      transition: transform 0.2s ease;
+    }
+
+    li:hover {
+      transform: scale(1.03);
+      background-color: #fff0f5;
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 18px;
+      background-color: #ffb6c1;
+      color: #fff;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    button:hover {
+      background-color: #f48fb1;
+    }
+
+    #resultado {
+      margin-top: 30px;
+      font-size: 24px;
+      color: #7b1fa2;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🍰 Onde vamos comer hoje?</h1>
+
+  <ul id="lista-restaurantes">
+    <li>Hoshi</li>
+    <li>Ninki</li>
+    <li>Temple</li>
+    <li>Musaxi</li>
+    <li>Kyuden</li>
+    <li>Bango</li>
+  </ul>
+
+  <button onclick="escolherRestaurante()">Escolher por mim 💖</button>
+
+  <div id="resultado"></div>
+
+  <script>
+    function escolherRestaurante() {
+      const restaurantes = [
+        "Hoshi",
+        "Ninki",
+        "Temple",
+        "Musaxi",
+        "Kyuden",
+        "Bango"
+      ];
+      
+      const indiceAleatorio = Math.floor(Math.random() * restaurantes.length-1);
+      const escolhido = restaurantes[indiceAleatorio];
+      console.log(document.getElementById ("lista-restaurantes").children[escolhido]);
+    
+      document.getElementById("resultado").innerText = "✨ Hoje vais a: " + escolhido + "!";
+    }
+  </script>
+
+</body>
+</html>
