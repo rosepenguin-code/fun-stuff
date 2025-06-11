@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Menu Fofinho</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background-color: #fff0f5;
+      color: #4b0082;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2.5rem;
+    }
+    select, button, input, textarea {
+      padding: 0.5rem;
+      margin: 0.5rem;
+      border-radius: 12px;
+      border: 2px solid #dda0dd;
+      font-size: 1rem;
+    }
+    .card {
+      background-color: #ffe4e1;
+      border-radius: 20px;
+      padding: 1rem;
+      margin: 1rem auto;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 0 10px #d8bfd8;
+    }
+    .categoria {
+      font-weight: bold;
+      color: #dc143c;
+    }
+  </style>
+</head>
+<body>
+  <h1>🌸 Menu Fofinho 🌸</h1>
+
+  <div class="card">
+    <h2>Adicionar Refeição</h2>
+    <input type="text" id="nome" placeholder="Nome da Refeição">
+    <select id="categoria">
+      <option value="carne">Carne</option>
+      <option value="peixe">Peixe</option>
+      <option value="massa">Massa</option>
+      <option value="sobremesa">Sobremesa</option>
+      <option value="lanche">Lanche</option>
+      <option value="pao">Pão</option>
+    </select><br>
+    <textarea id="ingredientes" placeholder="Ingredientes (um por linha)"></textarea><br>
+    <textarea id="receita" placeholder="Modo de preparação"></textarea><br>
+    <input type="text" id="tempo" placeholder="Tempo (min)">
+    <input type="text" id="custo" placeholder="Custo (€)">
+    <button onclick="adicionarRefeicao()">Adicionar</button>
+  </div>
+
+  <div class="card">
+    <h2>Escolher Refeição</h2>
+    <select id="listaRefeicoes"></select>
+    <button onclick="mostrarDetalhes()">Ver Receita</button>
+    <div id="detalhes"></div>
+  </div>
+
+  <div class="card">
+    <h2>🍀 Refeição Aleatória</h2>
+    <button onclick="refeicaoAleatoria()">Surpreende-me!</button>
+    <div id="aleatoria"></div>
+  </div>
+
+  <script>
+    const refeicoes = [];
+
+    function adicionarRefeicao() {
+      const nome = document.getElementById('nome').value;
+      const categoria = document.getElementById('categoria').value;
+      const ingredientes = document.getElementById('ingredientes').value.split('\n');
+      const receita = document.getElementById('receita').value;
+      const tempo = document.getElementById('tempo').value;
+      const custo = document.getElementById('custo').value;
+
+      if (!nome || !ingredientes.length || !receita) {
+        alert("Preenche todos os campos fofinhos!");
+        return;
+      }
+
+      const novaRefeicao = { nome, categoria, ingredientes, receita, tempo, custo };
+      refeicoes.push(novaRefeicao);
+      atualizarLista();
+      alert("Refeição adicionada com sucesso! 🧁");
+    }
+
+    function atualizarLista() {
+      const lista = document.getElementById('listaRefeicoes');
+      lista.innerHTML = '';
+      refeicoes.forEach((refeicao, index) => {
+        const opt = document.createElement('option');
+        opt.value = index;
+        opt.text = `${refeicao.nome} (${refeicao.categoria})`;
+        lista.add(opt);
+      });
+    }
+
+    function mostrarDetalhes() {
+      const index = document.getElementById('listaRefeicoes').value;
+      const r = refeicoes[index];
+      document.getElementById('detalhes').innerHTML = `
+        <p class="categoria">Categoria: ${r.categoria}</p>
+        <p><strong>Ingredientes:</strong><br>${r.ingredientes.join('<br>')}</p>
+        <p><strong>Receita:</strong> ${r.receita}</p>
+        <p>⏱️ Tempo: ${r.tempo} min | 💰 Custo: €${r.custo}</p>
+      `;
+    }
+
+    function refeicaoAleatoria() {
+      if (refeicoes.length === 0) {
+        document.getElementById('aleatoria').innerHTML = "Adiciona algumas refeições primeiro! 🍽️";
+        return;
+      }
+      const r = refeicoes[Math.floor(Math.random() * refeicoes.length)];
+      document.getElementById('aleatoria').innerHTML = `
+        <h3>${r.nome} (${r.categoria})</h3>
+        <p><strong>Ingredientes:</strong><br>${r.ingredientes.join('<br>')}</p>
+        <p><strong>Receita:</strong> ${r.receita}</p>
+        <p>⏱️ Tempo: ${r.tempo} min | 💰 Custo: €${r.custo}</p>
+      `;
+    }
+  </script>
+</body>
+</html>
